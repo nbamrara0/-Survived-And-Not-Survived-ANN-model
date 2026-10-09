@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Titanic Survival Prediction</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2ff;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px #0001;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 11px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .result {
+            padding: 15px;
+            background: #dcfce7;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .error {
+            color: #dc2626;
+            overflow-wrap: anywhere;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h2>Titanic Survival Prediction</h2>
+    <p>Enter passenger details to predict survival.</p>
+
+    <form method="POST">
+        <label>Passenger Class</label>
+        <select name="Pclass" required>
+            <option value="1">First Class</option>
+            <option value="2">Second Class</option>
+            <option value="3">Third Class</option>
+        </select>
+
+        <label>Sex</label>
+        <select name="Sex" required>
+            <option value="0">Female</option>
+            <option value="1">Male</option>
+        </select>
+
+        <label>Siblings / Spouses aboard</label>
+        <input type="number" name="SibSp"
+               min="0" max="10" value="0" required>
+
+        <label>Parents / Children aboard</label>
+        <input type="number" name="Parch"
+               min="0" max="10" value="0" required>
+
+        <label>Fare</label>
+        <input type="number" name="Fare"
+               min="0" step="any" value="30" required>
+
+        <label>Port of Embarkation</label>
+        <select name="Embarked" required>
+            <option value="S">Southampton</option>
+            <option value="C">Cherbourg</option>
+            <option value="Q">Queenstown</option>
+        </select>
+
+        <button type="submit">Predict Survival</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+        <h3>Result: {{ prediction }}</h3>
+        <p>Model score: {{ "%.2f"|format(probability) }}%</p>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+</div>
+</body>
+</html>
